@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def skicka_notis(del1, del2, del3, del4):
-    webhook_url = "https://hooks.slack.com/services/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" # Slack webhook
+    webhook_url = "https://hooks.slack.com/services/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" # Slack webhook
     payload = {
 	"blocks": [
 		{
