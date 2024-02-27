@@ -36,7 +36,7 @@ def kolla_elo(lag):
 
 
 def elo_csv(lag):
-    csv_file = csv.reader(open('C:/Users/carll/Desktop/betton v2/ELO lag.csv', "r",encoding="utf-8-sig"), delimiter=",")
+    csv_file = csv.reader(open('/home/glaucus/betton/betton v2/ELOlag.csv', "r",encoding="utf-8-sig"), delimiter=",")
     for row in csv_file:
         if lag == row[0]:
             print(row)
