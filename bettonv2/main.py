@@ -10,12 +10,16 @@ import requests
 
 def bettsnotis(betts, tips):
   
-  #Kollar hur bra bettsen var
-  gårdagensmatchermedresultat = matcher.gårdagensmatcher(str(datetime.date.today()+datetime.timedelta(-1)), betts)
+  #------------------------------Kollar hur bra bettsen var------------------------------
+  gårdagensmatchermedresultat = matcher.gårdagensmatcher(betts)
+
+  print("gårdagensmatchermedresultat", gårdagensmatchermedresultat)
+
   totalvinst = 0
-  for match in range(len(gårdagensmatchermedresultat)): 
-    if gårdagensmatchermedresultat[match] == betts[match][4]:
+  for vinst in betts:
+    if vinst[4] in gårdagensmatchermedresultat:
       totalvinst += 1
+
 
   #räknar ut effektivitet
   endagsvinst = totalvinst/len(betts)
@@ -25,10 +29,11 @@ def bettsnotis(betts, tips):
   sjudagars.append(endagsvinst)
   mavinst = round(sum(sjudagars)/7,2)
 
+
+  #------------------------------Sätter nya betts------------------------------
   datum = str(datetime.date.today()+datetime.timedelta(1))
   dagensmatcher = matcher.matcher(datum)
 
-  #Sätter nya betts
   betts = []
 
   for vilkenMatch in range(len(dagensmatcher)): 
@@ -75,15 +80,15 @@ endagsvinst = 0
 tips = 0
 sjudagars = [0,0,0,0,0,0,0]
 
-betts = [['Europa League', '17:45', 'Rangers', 'Benfica', 'Benfica', 369, 'web', '67.0%'], ['League Two', '20:00', 'Salford City', 'Stockport County', 'Stockport County', 328, 'csv', '65.58']]
+betts = [['ITALIAN SERIE A', '17:15', 'Lecce', 'Sassuolo', 'Lecce', 369, 'web', '100.0'], ['Scottish Cup', '12:30', 'Aberdeen', 'Celtic', 'Celtic', 328, 'csv', '85.48']]
 
 bettsnotis(betts, tips)
 
-
+time.sleep(86400)
 #schedule.every().day.at("23:55").do(bettsnotis(betts, tips, lifetimevinst, mavinst))
 
 while True: 
   #schedule.run_pending()
-  #bettsnotis(betts, tips, lifetimevinst, mavinst)
+  bettsnotis(betts, tips)
   time.sleep(86400) #Var 24 timme
   

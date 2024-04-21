@@ -60,12 +60,11 @@ def matcher(datum):
         print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
     return allt
 
-def gårdagensmatcher(datum, gårdagenmatcher):
+def gårdagensmatcher(gårdagenmatcher):
     "Hittar resultaten på BBC"
-    print(datum)
     allt = []
     # Specify the URL of the website you want to scrape
-    url = 'https://www.bbc.com/sport/football/scores-fixtures/'+datum
+    url = 'https://www.bbc.com/sport/football/scores-fixtures/'
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -89,11 +88,13 @@ def gårdagensmatcher(datum, gårdagenmatcher):
                     lag2text = lag2_class.text.strip()
                     resultattext1 = resultat1_class.text.strip()
                     resultattext2 = resultat2_class.text.strip()
-                    if any(lag1text in dagenslag for dagenslag in gårdagenmatcher):
-                        if int(resultattext1) > int(resultattext2):
-                            allt.append(lag1text)
-                        else:
-                            allt.append(lag2text)
+                    print("resultattext2", resultattext2)
+                    #if lag1text in gårdagenmatcher:
+                    if int(resultattext1) > int(resultattext2):
+                        allt.append(lag1text)
+                        print("allt",allt)
+                    else:
+                        allt.append(lag2text)
             else:
                 print("How about no... :)")
     else:
